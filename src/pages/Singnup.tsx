@@ -5,6 +5,7 @@ import { signupSchema } from "../validation/signupSchema";
 import { signupUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FirebaseError } from "firebase/app";
 
 
 
@@ -21,8 +22,26 @@ const Signup = () => {
             navigate("/login")
 
         }catch (error){
-            console.log(error)
-            toast.error("Signup Failed")
+            if (error instanceof FirebaseError) {
+                switch (error.code) {
+                    case "auth/email-already-in-use":
+                    toast.error("Email already exists");
+                    break;
+
+                    case "auth/weak-password":
+                    toast.error("Password should be at least 6 characters");
+                    break;
+
+                    case "auth/invalid-email":
+                    toast.error("Invalid email address");
+                    break;
+
+                    default:
+                    toast.error(error.message);
+                }
+            } else {
+                toast.error("Something went wrong");
+            }
         }
     }
     return(
