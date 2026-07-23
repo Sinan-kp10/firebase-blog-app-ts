@@ -3,9 +3,11 @@ import type { SignupForm } from "../type/auth"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../validation/signupSchema";
 import { signupUser } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FirebaseError } from "firebase/app";
+import "./signup.css";
+
 
 
 
@@ -44,28 +46,46 @@ const Signup = () => {
             }
         }
     }
-    return(
-        <>
+    return (
+        <div className="signup-container">
+            <div className="signup-card">
+                <h2 className="signup-title">Create an Account</h2>
+                <p className="signup-subtitle">Join us by creating a new account</p>
+                <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+                    
+                    <div className="form-group">
+                        <label className="form-label">Full Name</label>
+                        <input className="form-input" type="text" placeholder="Enter your name" {...register("name")} />
+                        <p className="error-message">{errors.name?.message}</p>
+                    </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-group">
+                        <label className="form-label">Email Address</label>
+                        <input className="form-input" type="email" placeholder="Enter your email" {...register("email")} />
+                        <p className="error-message">{errors.email?.message}</p>
+                    </div>
 
-                <input type="text" placeholder="Enter your name" {...register("name")} />
-                <p>{errors.name?.message}</p>
+                    <div className="form-group">
+                        <label className="form-label">Password</label>
+                        <input className="form-input" type="password" placeholder="Enter password" {...register("password")} />
+                        <p className="error-message">{errors.password?.message}</p>
+                    </div>
 
-                <input type="email" placeholder="Enter your email" {...register("email")} />
-                <p>{errors.email?.message}</p>
+                    <div className="form-group">
+                        <label className="form-label">Confirm Password</label>
+                        <input className="form-input" type="password" placeholder="Confirm password" {...register("confirmPassword")} />
+                        <p className="error-message">{errors.confirmPassword?.message}</p>
+                    </div>
 
-                <input type="password" placeholder="Enter password" {...register("password")} />
-                <p>{errors.password?.message}</p>
+                    <button type="submit" className="submit-button">Sign Up</button>
+                    
+                    <p className="auth-redirect">
+                        Already have an account? <Link to="/login" className="auth-link">Login</Link>
+                    </p>
 
-                <input type="password" placeholder="Confirm password" {...register("confirmPassword")} />
-                <p>{errors.confirmPassword?.message}</p>
-
-                <button type="submit">Sign Up</button>
-
-            </form>
-            
-        </>
+                </form>
+            </div>
+        </div>
     )
 }
 
