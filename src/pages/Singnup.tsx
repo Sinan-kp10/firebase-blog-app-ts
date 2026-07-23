@@ -3,22 +3,26 @@ import type { SignupForm } from "../type/auth"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../validation/signupSchema";
 import { signupUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 
 const Signup = () => {
 
     const {register, handleSubmit, formState : {errors}} = useForm<SignupForm>({ resolver : zodResolver(signupSchema)})
-
-
+    const navigate = useNavigate()
+        
     const onSubmit = async (data : SignupForm) =>{
         try{
-            const user = await signupUser(data.name , data.email ,data.password)
-            console.log(user);
-            alert("Account created successfully");
+            await signupUser(data.name , data.email ,data.password)
+
+            toast.success("Account created successfully");
+            navigate("/login")
+
         }catch (error){
             console.log(error)
-            alert("Signup Failed")
+            toast.error("Signup Failed")
         }
     }
     return(
