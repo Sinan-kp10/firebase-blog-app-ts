@@ -46,7 +46,7 @@ const Signup = () => {
     }
     return(
         <>
-            <h1>Sign Up</h1>
+
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <input type="text" placeholder="Enter your name" {...register("name")} />
