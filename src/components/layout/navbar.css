@@ -61,14 +61,21 @@
 }
 
 .navbar-user {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-size: 14px;
-  font-weight: 500;
-  color: #4a5568;
-  background-color: #edf2f7;
+  font-weight: 600;
+  color: #2b6cb0;
+  background-color: #ebf8ff;
+  border: 1px solid #bee3f8;
   padding: 6px 14px;
   border-radius: 9999px;
-  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(49, 130, 206, 0.05);
 }
+
+
 
 .navbar-logout {
   font-size: 14px;
@@ -133,7 +140,8 @@
     text-align: center;
   }
 
-  .navbar-logout, .navbar-login {
+  .navbar-logout,
+  .navbar-login {
     order: 4;
     width: calc(40% - 6px);
     padding: 6px 12px;
@@ -144,7 +152,8 @@
     order: 1;
   }
 
-  .navbar-link, .navbar-link-create {
+  .navbar-link,
+  .navbar-link-create {
     margin-left: 0;
     order: 2;
     padding: 6px 10px;

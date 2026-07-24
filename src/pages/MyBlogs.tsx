@@ -5,7 +5,9 @@ import type { Blog } from "../types/blog";
 import BlogCard from "../components/blog/BlogCard";
 import { deleteBlog } from "../services/blogService";
 import { toast } from "react-toastify";
-import "./bloglist.css";
+import { Link } from "react-router-dom";
+import DeleteModal from "../components/blog/DeleteModal";
+import "./myblogs.css";
 
 
 
@@ -14,23 +16,26 @@ const MyBlogs = () => {
     const [blogs, setBlogs] = useState<Blog[]>([])
     const [loading, setLoading] =useState(true)
     const {user} = useAuth()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [blogToDelete, setBlogToDelete] = useState<string | null>(null)
 
-    const handleDelete = async(id : string) =>{
+    const handleDeleteClick = (id : string) => {
+        setBlogToDelete(id);
+        setIsModalOpen(true);
+    };
 
-        const confirmed = window.confirm("Are you sure you want to delete this blog?")
-
-        if (!confirmed) return;
-
+    const handleConfirmDelete = async() => {
+        if (!blogToDelete) return;
         try {
-            
-            await deleteBlog(id)
-
-            setBlogs((prevBlogs)=> prevBlogs.filter((blog)=> blog.id !== id))
+            await deleteBlog(blogToDelete);
+            setBlogs((prevBlogs)=> prevBlogs.filter((blog)=> blog.id !== blogToDelete));
             toast.success("Blog deleted successfully.");
         } catch (error) {
             console.error(error);
             toast.error("Failed to delete blog.");
-            
+        } finally {
+            setIsModalOpen(false);
+            setBlogToDelete(null);
         }
     }
 
@@ -64,18 +69,27 @@ const MyBlogs = () => {
 
     return (
 
-          <div className="blog-list-container">
-            <h1 className="blog-list-title">My Blogs</h1>
+          <div className="my-blogs-container">
+            <Link to="/" className="back-to-home">
+                <span className="back-icon">←</span> Back to Home
+            </Link>
+            <h1 className="my-blogs-title">My Blogs</h1>
 
             {blogs.length === 0 ? (
                 <p className="no-blogs-message">No blogs found.</p>
             ) : (
-            <div className="blog-grid">
+            <div className="my-blogs-grid">
                 {blogs.map((blog) => (
-                    <BlogCard  key={blog.id} blog={blog} showActions  onDelete={handleDelete}/>
+                    <BlogCard  key={blog.id} blog={blog} showActions  onDelete={handleDeleteClick}/>
                 ))}
             </div>
             )}
+
+            <DeleteModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+                onConfirm={handleConfirmDelete} 
+            />
         </div>
     )
 

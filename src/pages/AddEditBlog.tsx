@@ -63,6 +63,7 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
             if(id){
                 await updatingBlog(id, data.title , data.content)
                 toast.success("Blog updated successfully");
+                navigate("/my-blogs");
             }else{
 
                 await createBlog({
@@ -72,10 +73,9 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
                     authorName: user.displayName || "Anonymous"
                 })
                 toast.success("Blog published successfully");
+                navigate("/");
 
             }      
-
-            navigate("/");
 
         } catch (error) {
 
@@ -108,7 +108,7 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
 
             <div className="form-actions">
                 <button type="submit" className="submit-button">{id ? "Update Blog" : "Publish Blog"}</button>
-                <button type="button" className="cancel-button" onClick={() => navigate("/")}>Cancel</button>
+                <button type="button" className="cancel-button" onClick={() => navigate(id ? "/my-blogs" : "/")}>Cancel</button>
             </div>
 
         </form>
