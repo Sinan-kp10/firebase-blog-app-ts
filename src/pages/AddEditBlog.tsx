@@ -87,7 +87,9 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
       <textarea rows={8} placeholder="Write your blog..." {...register("content")}/>
       <p>{errors.content?.message}</p>
 
-      <button type="submit">Publish Blog</button>
+      <button type="submit">{id ? "Update Blog" : "Publish Blog"}</button>
+      <button>Cancel</button>
+
     </form>
   );
 };
