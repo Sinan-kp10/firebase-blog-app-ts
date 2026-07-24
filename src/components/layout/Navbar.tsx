@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { logoutUser } from "../../services/authService";
 import { toast } from "react-toastify";
+import "./navbar.css";
 
 const Navbar = () => {
     
@@ -23,11 +24,11 @@ const Navbar = () => {
     };
 
     return(
-        <nav>
-            <Link to="/">Home</Link>
-            <Link to="/blog/new">Create Blog</Link>
-            {user && <p>{user.displayName}</p>}
-            <button onClick={handleLogout}>Logout</button>
+        <nav className="navbar">
+            <Link to="/" className="navbar-logo">Blogify</Link>
+            <Link to="/blog/new" className="navbar-link">Create Blog</Link>
+            {user && <p className="navbar-user">{user.displayName || "User"}</p>}
+            <button onClick={handleLogout} className="navbar-logout">Logout</button>
 
         </nav>
     )

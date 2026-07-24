@@ -9,6 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { updatingBlog } from "../services/blogService";
+import "./addeditblog.css";
 
 
 const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { errors }} = useForm<BlogForm>({resolver: zodResolver(blogSchema),});
@@ -79,18 +80,34 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
   
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Blog Title" {...register("title")} />
+    <div className="blog-form-container">
+      <div className="blog-form-card">
+        <h2 className="blog-form-title">{id ? "Edit Blog Post" : "Create New Blog"}</h2>
+        <p className="blog-form-subtitle">
+          {id ? "Make changes to your published blog post" : "Write your story and share it with the community"}
+        </p>
 
-      <p>{errors.title?.message}</p>
+        <form onSubmit={handleSubmit(onSubmit)} className="blog-form">
+            <div className="form-group">
+                <label className="form-label">Blog Title</label>
+                <input className="form-input" type="text" placeholder="Blog Title" {...register("title")} />
+                <p className="error-message">{errors.title?.message}</p>
+            </div>
 
-      <textarea rows={8} placeholder="Write your blog..." {...register("content")}/>
-      <p>{errors.content?.message}</p>
+            <div className="form-group">
+                <label className="form-label">Blog Content</label>
+                <textarea className="form-input form-textarea" rows={10} placeholder="Write your blog..." {...register("content")}/>
+                <p className="error-message">{errors.content?.message}</p>
+            </div>
 
-      <button type="submit">{id ? "Update Blog" : "Publish Blog"}</button>
-      <button>Cancel</button>
+            <div className="form-actions">
+                <button type="submit" className="submit-button">{id ? "Update Blog" : "Publish Blog"}</button>
+                <button type="button" className="cancel-button" onClick={() => navigate("/")}>Cancel</button>
+            </div>
 
-    </form>
+        </form>
+      </div>
+    </div>
   );
 };
 

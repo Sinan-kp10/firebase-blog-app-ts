@@ -1,5 +1,6 @@
 import type { Blog } from "../../types/blog";
 import { Link } from "react-router-dom";
+import "./blogcard.css";
 
 type BlogCardProps = {
   blog: Blog;
@@ -8,20 +9,22 @@ type BlogCardProps = {
 
 const BlogCard = ({blog} : BlogCardProps) => {
     return (
-        <div >
+        <div className="blog-card">
 
-            <h2 >{blog.title}</h2>
+            <h2 className="blog-card-title">{blog.title}</h2>
 
-            <p > By {blog.authorName} </p>
+            <p className="blog-card-author"> By <span className="blog-author-highlight">{blog.authorName}</span> </p>
 
-            <p >{blog.content}</p>
+            <p className="blog-card-content">{blog.content}</p>
 
-            <Link to={`/blog/edit/${blog.id}`}>
-                    <button>Edit</button>
+            <div className="blog-card-actions">
+                <Link to={`/blog/edit/${blog.id}`} className="blog-card-link">
+                    <button className="blog-card-btn edit-btn">Edit</button>
                 </Link>
-                <Link to={`/blog/delete/${blog.id}`}>
-                    <button>Delete</button>
+                <Link to={`/blog/delete/${blog.id}`} className="blog-card-link">
+                    <button className="blog-card-btn delete-btn">Delete</button>
                 </Link>
+            </div>
         </div>
   );
 }
