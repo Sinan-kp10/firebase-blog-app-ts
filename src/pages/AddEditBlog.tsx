@@ -29,6 +29,12 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
                     
                     const blog = await getBlogById(id)
 
+                    if (blog.authorId !== user?.uid) {
+                        toast.error("You are not authorized to edit this blog.");
+                        navigate("/");
+                        return;
+                    }
+
                     reset({
                         title : blog.title,
                         content : blog.content
@@ -44,7 +50,7 @@ const AddEditBlog = () => { const {register,handleSubmit, reset,  formState: { e
         } catch (error) {
             
         }
-    },[id,reset])
+    },[id, user, reset, navigate])
 
     const onSubmit = async(data: BlogForm) => {
         if (!user) {

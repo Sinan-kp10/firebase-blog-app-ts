@@ -27,6 +27,9 @@ const Navbar = () => {
         <nav className="navbar">
             <Link to="/" className="navbar-logo">Blogify</Link>
             <Link to="/blog/new" className="navbar-link">Create Blog</Link>
+
+            {user && (<Link to="/my-blogs" className="navbar-link">My Blogs</Link>)}
+
             {user && <p className="navbar-user">{user.displayName || "User"}</p>}
             {user ? (
                 <button onClick={handleLogout} className="navbar-logout">Logout</button>

@@ -1,4 +1,4 @@
-import { addDoc, getDoc, collection, doc, serverTimestamp , getDocs, orderBy, query, updateDoc} from "firebase/firestore";
+import { addDoc, getDoc, collection, doc, serverTimestamp , getDocs, orderBy,  where, query, updateDoc} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import type { CreateBlogData } from "../types/blog";
 
@@ -53,6 +53,30 @@ export const getBlogById = async (id: string) => {
         authorName: data.authorName,
         createdAt: data.createdAt,
     };
+};
+
+
+export const getUserBlogs = async (userId: string) => {
+    const q = query(
+        collection(db, "blogs"),
+        where("authorId", "==", userId),
+        orderBy("createdAt", "desc")
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+
+        return {
+        id: doc.id,
+        title: data.title,
+        content: data.content,
+        authorId: data.authorId,
+        authorName: data.authorName,
+        createdAt: data.createdAt,
+        };
+    });
 };
 
 
