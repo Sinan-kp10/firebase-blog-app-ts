@@ -2,9 +2,7 @@
 
 Blogify is a sleek, responsive, and high-fidelity blogging application built using **React**, **TypeScript**, **Vite**, and **Firebase**. The application features email-based authentication, user-specific dashboards, custom popups, and a polished responsive design system built entirely with vanilla CSS.
 
-
 visit : https://blog-posting-app-delta.vercel.app/
-
 ---
 
 ## 🌟 Key Features
@@ -63,27 +61,6 @@ Clone this repository to your local system and navigate to the project directory
 npm install
 ```
 
-### 3. Firebase Configuration
-Create a Firestore database and Auth configuration. Then initialize it in `src/firebase/firebase.ts` matching the following configuration:
-```typescript
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-```
-
 ### 4. Running Locally
 Start the local Vite development server:
 ```bash
@@ -99,6 +76,14 @@ npm run build
 The compiled output will be generated inside the `dist/` directory.
 
 ---
+## 👨‍💻 Author
+
+**Muhammed Sinan KP**
+
+GitHub: https://github.com/Sinan-kp10
+
+---
 
 ## 📄 License
-This project is open-source and available under the MIT License.
+
+This project is created for learning purposes.
