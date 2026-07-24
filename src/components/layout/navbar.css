@@ -31,7 +31,6 @@
 }
 
 .navbar-link {
-  margin-left: auto;
   font-size: 14px;
   font-weight: 600;
   color: #ffffff;
@@ -44,6 +43,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.navbar-link-create {
+  margin-left: auto;
 }
 
 .navbar-link:hover {
@@ -141,7 +144,7 @@
     order: 1;
   }
 
-  .navbar-link {
+  .navbar-link, .navbar-link-create {
     margin-left: 0;
     order: 2;
     padding: 6px 10px;

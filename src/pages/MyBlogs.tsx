@@ -3,6 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { getUserBlogs } from "../services/blogService";
 import type { Blog } from "../types/blog";
 import BlogCard from "../components/blog/BlogCard";
+import "./bloglist.css";
 
 
 const MyBlogs = () => {
@@ -41,15 +42,17 @@ const MyBlogs = () => {
 
     return (
 
-          <div>
-            <h1>My Blogs</h1>
+          <div className="blog-list-container">
+            <h1 className="blog-list-title">My Blogs</h1>
 
             {blogs.length === 0 ? (
-                <p>No blogs found.</p>
+                <p className="no-blogs-message">No blogs found.</p>
             ) : (
-            blogs.map((blog) => (
-                <BlogCard  key={blog.id} blog={blog} showActions/>
-            ))
+            <div className="blog-grid">
+                {blogs.map((blog) => (
+                    <BlogCard  key={blog.id} blog={blog} showActions/>
+                ))}
+            </div>
             )}
         </div>
     )

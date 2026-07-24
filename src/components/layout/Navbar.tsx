@@ -26,7 +26,7 @@ const Navbar = () => {
     return(
         <nav className="navbar">
             <Link to="/" className="navbar-logo">Blogify</Link>
-            <Link to="/blog/new" className="navbar-link">Create Blog</Link>
+            <Link to="/blog/new" className="navbar-link navbar-link-create">Create Blog</Link>
 
             {user && (<Link to="/my-blogs" className="navbar-link">My Blogs</Link>)}
 
