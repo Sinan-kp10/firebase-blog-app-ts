@@ -1,5 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { getDocs, orderBy, query } from "firebase/firestore";
+import { addDoc, getDoc, collection, doc, serverTimestamp , getDocs, orderBy, query, updateDoc} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import type { CreateBlogData } from "../types/blog";
 
@@ -33,3 +32,36 @@ export const getAllBlogs = async () => {
         };
     });
 };
+
+export const getBlogById = async (id: string) => {
+
+    const docRef = doc(db, "blogs", id);
+
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+        throw new Error("Blog not found");
+    }
+
+    const data = docSnap.data();
+
+    return {
+        id: docSnap.id,
+        title: data.title,
+        content: data.content,
+        authorId: data.authorId,
+        authorName: data.authorName,
+        createdAt: data.createdAt,
+    };
+};
+
+
+export const updatingBlog = async(id : string, title : string, content : string) =>{
+
+    const blogRef = doc(db,"blogs",id)
+
+    await updateDoc(blogRef, {
+        title,
+        content
+    })
+}
