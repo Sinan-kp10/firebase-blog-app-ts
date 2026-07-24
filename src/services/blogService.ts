@@ -16,11 +16,20 @@ export const getAllBlogs = async () => {
     const q = query(
         collection(db, "blogs"),
         orderBy("createdAt", "desc")
-    )
-    const querySnapshot = await getDocs(q)
+    );
 
-    return querySnapshot.docs.map((doc) => ({
-        id : doc.id,
-        ...doc.data()
-    }))
-}
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+
+        return {
+            id: doc.id,
+            title: data.title,
+            content: data.content,
+            authorId: data.authorId,
+            authorName: data.authorName,
+            createdAt: data.createdAt,
+        };
+    });
+};
