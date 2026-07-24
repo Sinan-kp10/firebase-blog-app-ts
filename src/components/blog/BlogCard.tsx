@@ -1,6 +1,7 @@
 import type { Blog } from "../../types/blog";
 import { Link } from "react-router-dom";
 import "./blogcard.css";
+import {useAuth} from "../../hooks/useAuth";
 
 type BlogCardProps = {
     blog: Blog;
@@ -8,6 +9,9 @@ type BlogCardProps = {
 
 
 const BlogCard = ({ blog }: BlogCardProps) => {
+
+    const {user} = useAuth()
+
     return (
         <div className="blog-card">
 
@@ -21,12 +25,21 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             <p className="blog-card-content">{blog.content}</p>
 
             <div className="blog-card-actions">
-                <Link to={`/blog/edit/${blog.id}`} className="blog-card-link">
-                    <button className="blog-card-btn edit-btn">Edit</button>
-                </Link>
-                <Link to={`/blog/delete/${blog.id}`} className="blog-card-link">
-                    <button className="blog-card-btn delete-btn">Delete</button>
-                </Link>
+
+                {user?.uid === blog.authorId && (
+                    <Link to={`/blog/edit/${blog.id}`} className="blog-card-link">
+                        <button className="blog-card-btn edit-btn">Edit</button>
+                    </Link>
+                )}
+
+                {user?.uid === blog.authorId && (
+                    <Link to={`/blog/delete/${blog.id}`} className="blog-card-link">
+                        <button className="blog-card-btn delete-btn">Delete</button>
+                    </Link>
+                )}
+
+                
+                
             </div>
         </div>
     );
