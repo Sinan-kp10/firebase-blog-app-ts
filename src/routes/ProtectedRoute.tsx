@@ -11,7 +11,11 @@ const ProtectedRoute = ({children} : ProtectedRouteProps ) => {
     const {user ,loading} = useAuth()
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return (
+            <div className="blog-list-loading-container">
+                <div className="loading-spinner"></div>
+            </div>
+        );
     }
 
     if(!user){
