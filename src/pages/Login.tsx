@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { toast } from "react-toastify";
 import { loginSchema } from "../validation/loginSchema";
-import type { LoginForm } from "../type/auth";
+import type { LoginForm } from "../types/auth";
 import { loginUser } from "../services/authService";
 import "./login.css";
 
@@ -18,7 +18,7 @@ const Login = () =>{
         try {
             
             await loginUser(data.email , data.password)
-            toast.success("Login Successful");
+            toast.success("Login Successfully");
             navigate("/");
         } catch (error) {
             if(error instanceof FirebaseError){

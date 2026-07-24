@@ -9,7 +9,7 @@ export const useAuth = () => {
         throw new Error("useAuth must be used inside AuthProvider");
     }
 
-      return userData;
+    return userData;
 }
 
 export default useAuth;
