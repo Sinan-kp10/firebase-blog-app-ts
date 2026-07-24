@@ -5,10 +5,11 @@ import "./blogcard.css";
 type BlogCardProps = {
     blog: Blog;
     showActions?: boolean;
+    onDelete?: (id: string) => void;
 };
 
 
-const BlogCard = ({ blog, showActions= false }: BlogCardProps) => {
+const BlogCard = ({ blog, showActions= false, onDelete }: BlogCardProps) => {
 
     return (
         <div className="blog-card">
@@ -30,7 +31,11 @@ const BlogCard = ({ blog, showActions= false }: BlogCardProps) => {
                     </Link>
                 )}
 
-                
+                {showActions && (
+                    
+                    <button onClick={()=> onDelete?.(blog.id)} className="blog-card-btn delete-btn">Delete</button>
+                   
+                )}
 
                 
                 

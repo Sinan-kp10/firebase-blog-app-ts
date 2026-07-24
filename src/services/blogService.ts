@@ -1,4 +1,4 @@
-import { addDoc, getDoc, collection, doc, serverTimestamp , getDocs, orderBy,  where, query, updateDoc} from "firebase/firestore";
+import { addDoc, getDoc, collection, doc, serverTimestamp , getDocs, orderBy,  where, query, updateDoc,  deleteDoc} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import type { CreateBlogData } from "../types/blog";
 
@@ -89,3 +89,9 @@ export const updatingBlog = async(id : string, title : string, content : string)
         content
     })
 }
+
+export const deleteBlog = async (id: string) => {
+    const blogRef = doc(db, "blogs", id);
+
+    await deleteDoc(blogRef);
+};
