@@ -12,17 +12,21 @@ type AuthProviderProps = {
 export const AuthProvider = ({children} : AuthProviderProps ) =>{
 
     const [user, setUser] = useState<User | null>(null)
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
 
-        const unsubscribe = onAuthStateChanged(auth, (currentUser)=> setUser(currentUser))
+        const unsubscribe = onAuthStateChanged(auth, (currentUser)=> {
+            setUser(currentUser)
+            setLoading(false)
+        })
 
         return () => unsubscribe()
 
     },[])
 
     return (
-        <AuthContext.Provider value={{user}}>
+        <AuthContext.Provider value={{user, loading}}>
             {children}
         </AuthContext.Provider>
     )
