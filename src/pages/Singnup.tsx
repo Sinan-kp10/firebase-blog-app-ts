@@ -6,7 +6,9 @@ import { signupUser } from "../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FirebaseError } from "firebase/app";
+import { Eye, EyeOff } from "lucide-react";
 import "./signup.css";
+import { useState } from "react";
 
 
 
@@ -15,6 +17,7 @@ const Signup = () => {
 
     const {register, handleSubmit, formState : {errors}} = useForm<SignupForm>({ resolver : zodResolver(signupSchema)})
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false)
         
     const onSubmit = async (data : SignupForm) =>{
         try{
@@ -54,26 +57,36 @@ const Signup = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
                     
                     <div className="form-group">
-                        <label className="form-label">Full Name</label>
-                        <input className="form-input" type="text" placeholder="Enter your name" {...register("name")} />
+                        <label className="form-label" htmlFor="name">Full Name</label>
+                        <input className="form-input" id="name" type="text" placeholder="Enter your name" {...register("name")} />
                         <p className="error-message">{errors.name?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Email Address</label>
-                        <input className="form-input" type="email" placeholder="Enter your email" {...register("email")} />
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input className="form-input" id="email" type="email" placeholder="Enter your email" {...register("email")} />
                         <p className="error-message">{errors.email?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <input className="form-input" type="password" placeholder="Enter password" {...register("password")} />
+                        <label className="form-label" htmlFor="password">Password</label>
+                        <div className="password-input-container">
+                            <input className="form-input" id="password" type={showPassword ? "text" : "password"} placeholder="Enter password" {...register("password")} />
+                            <button className="password-toggle-btn" type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Confirm Password</label>
-                        <input className="form-input" type="password" placeholder="Confirm password" {...register("confirmPassword")} />
+                        <label className="form-label" htmlFor="confPass">Confirm Password</label>
+                        <div className="password-input-container">
+                            <input className="form-input" id="confPass" type={showPassword ? "text" : "password"} placeholder="Confirm password" {...register("confirmPassword")} />
+                            <button className="password-toggle-btn" type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                         <p className="error-message">{errors.confirmPassword?.message}</p>
                     </div>
 

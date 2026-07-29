@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { loginSchema } from "../validation/loginSchema";
 import type { LoginForm } from "../types/auth";
 import { loginUser } from "../services/authService";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import "./login.css";
 
 
@@ -13,6 +15,7 @@ const Login = () =>{
 
     const {register, handleSubmit, formState: {errors}} =  useForm<LoginForm>({resolver : zodResolver(loginSchema)})
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit = async(data : LoginForm) =>{
         try {
@@ -47,14 +50,19 @@ const Login = () =>{
                 <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                     
                     <div className="form-group">
-                        <label className="form-label">Email Address</label>
-                        <input className="form-input" type="email" placeholder="Enter your email" {...register("email")}/>
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input className="form-input" id="email" type="email" placeholder="Enter your email" {...register("email")}/>
                         <p className="error-message">{errors.email?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <input className="form-input" type="password" placeholder="Enter your password" {...register("password")}/>
+                        <label className="form-label" htmlFor="password">Password</label>
+                        <div className="password-input-container">
+                            <input className="form-input" id="password" type={showPassword ? "text" : "password"} placeholder="Enter your password" {...register("password")}/>
+                            <button className="password-toggle-btn" type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
