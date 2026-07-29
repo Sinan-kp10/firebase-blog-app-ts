@@ -54,26 +54,26 @@ const Signup = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
                     
                     <div className="form-group">
-                        <label className="form-label">Full Name</label>
-                        <input className="form-input" type="text" placeholder="Enter your name" {...register("name")} />
+                        <label className="form-label" htmlFor="name">Full Name</label>
+                        <input className="form-input" id="name" type="text" placeholder="Enter your name" {...register("name")} />
                         <p className="error-message">{errors.name?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Email Address</label>
-                        <input className="form-input" type="email" placeholder="Enter your email" {...register("email")} />
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input className="form-input" id="email" type="email" placeholder="Enter your email" {...register("email")} />
                         <p className="error-message">{errors.email?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <input className="form-input" type="password" placeholder="Enter password" {...register("password")} />
+                        <label className="form-label" htmlFor="password">Password</label>
+                        <input className="form-input" id="password" type="password" placeholder="Enter password" {...register("password")} />
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Confirm Password</label>
-                        <input className="form-input" type="password" placeholder="Confirm password" {...register("confirmPassword")} />
+                        <label className="form-label" htmlFor="confPass">Confirm Password</label>
+                        <input className="form-input" id="confPass" type="password" placeholder="Confirm password" {...register("confirmPassword")} />
                         <p className="error-message">{errors.confirmPassword?.message}</p>
                     </div>
 

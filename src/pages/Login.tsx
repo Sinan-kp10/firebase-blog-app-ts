@@ -47,14 +47,14 @@ const Login = () =>{
                 <form onSubmit={handleSubmit(onSubmit)} className="login-form">
                     
                     <div className="form-group">
-                        <label className="form-label">Email Address</label>
-                        <input className="form-input" type="email" placeholder="Enter your email" {...register("email")}/>
+                        <label className="form-label" htmlFor="email">Email Address</label>
+                        <input className="form-input" id="email" type="email" placeholder="Enter your email" {...register("email")}/>
                         <p className="error-message">{errors.email?.message}</p>
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <input className="form-input" type="password" placeholder="Enter your password" {...register("password")}/>
+                        <label className="form-label" htmlFor="password">Password</label>
+                        <input className="form-input" id="password" type="password" placeholder="Enter your password" {...register("password")}/>
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
