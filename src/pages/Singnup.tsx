@@ -6,7 +6,9 @@ import { signupUser } from "../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FirebaseError } from "firebase/app";
+import { Eye, EyeOff } from "lucide-react";
 import "./signup.css";
+import { useState } from "react";
 
 
 
@@ -15,6 +17,7 @@ const Signup = () => {
 
     const {register, handleSubmit, formState : {errors}} = useForm<SignupForm>({ resolver : zodResolver(signupSchema)})
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false)
         
     const onSubmit = async (data : SignupForm) =>{
         try{
@@ -67,13 +70,15 @@ const Signup = () => {
 
                     <div className="form-group">
                         <label className="form-label" htmlFor="password">Password</label>
-                        <input className="form-input" id="password" type="password" placeholder="Enter password" {...register("password")} />
+                        <input className="form-input" id="password" type={showPassword ? "text" : "password"} placeholder="Enter password" {...register("password")} />
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
                     <div className="form-group">
                         <label className="form-label" htmlFor="confPass">Confirm Password</label>
-                        <input className="form-input" id="confPass" type="password" placeholder="Confirm password" {...register("confirmPassword")} />
+                        <input className="form-input" id="confPass" type={showPassword ? "text" : "password"} placeholder="Confirm password" {...register("confirmPassword")} />
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
                         <p className="error-message">{errors.confirmPassword?.message}</p>
                     </div>
 

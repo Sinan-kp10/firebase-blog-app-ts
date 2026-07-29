@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { loginSchema } from "../validation/loginSchema";
 import type { LoginForm } from "../types/auth";
 import { loginUser } from "../services/authService";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import "./login.css";
 
 
@@ -13,6 +15,7 @@ const Login = () =>{
 
     const {register, handleSubmit, formState: {errors}} =  useForm<LoginForm>({resolver : zodResolver(loginSchema)})
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false)
 
     const onSubmit = async(data : LoginForm) =>{
         try {
@@ -54,7 +57,8 @@ const Login = () =>{
 
                     <div className="form-group">
                         <label className="form-label" htmlFor="password">Password</label>
-                        <input className="form-input" id="password" type="password" placeholder="Enter your password" {...register("password")}/>
+                        <input className="form-input" id="password" type={showPassword ? "text" : "password"} placeholder="Enter your password" {...register("password")}/>
+                        <button type="button" onClick={()=> setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"}> {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
                         <p className="error-message">{errors.password?.message}</p>
                     </div>
 
