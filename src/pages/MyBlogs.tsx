@@ -60,7 +60,7 @@ const MyBlogs = () => {
             } catch (error) {
                 console.log(error)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
         }
         fetchBlogs()
@@ -69,36 +69,36 @@ const MyBlogs = () => {
 
     const goToPage = async (pageNumber: number) => {
         if (!user) return;
-        const currentPage = prevCursors.length + 1;
-        if (pageNumber === currentPage) return;
+        const currentPage = prevCursors.length + 1
+        if (pageNumber === currentPage) return
 
         try {
             setLoading(true);
             let data;
-            let newPrevCursors = [...prevCursors];
-            let newCurrentCursor = currentCursor;
+            let newPrevCursors = [...prevCursors]
+            let newCurrentCursor = currentCursor
 
             if (pageNumber === currentPage + 1) {
-                if (!user || !lastDoc) return;
-                data = await getUserBlogs(user.uid, lastDoc);
-                newPrevCursors.push(currentCursor);
-                newCurrentCursor = lastDoc;
+                if (!user || !lastDoc) return
+                data = await getUserBlogs(user.uid, lastDoc)
+                newPrevCursors.push(currentCursor)
+                newCurrentCursor = lastDoc
             } else {
-                const targetCursor = prevCursors[pageNumber - 1];
-                data = await getUserBlogs(user.uid, targetCursor || undefined);
-                newPrevCursors = prevCursors.slice(0, pageNumber - 1);
-                newCurrentCursor = targetCursor || null;
+                const targetCursor = prevCursors[pageNumber - 1]
+                data = await getUserBlogs(user.uid, targetCursor || undefined)
+                newPrevCursors = prevCursors.slice(0, pageNumber - 1)
+                newCurrentCursor = targetCursor || null
             }
 
-            setPrevCursors(newPrevCursors);
-            setCurrentCursor(newCurrentCursor);
-            setBlogs(data.blogs);
-            setLastDoc(data.lastDoc ?? null);
-            setHasNextPage(data.hasNextPage);
+            setPrevCursors(newPrevCursors)
+            setCurrentCursor(newCurrentCursor)
+            setBlogs(data.blogs)
+            setLastDoc(data.lastDoc ?? null)
+            setHasNextPage(data.hasNextPage)
         } catch (error) {
-            console.error(error);
+            console.error(error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     };
 
@@ -146,32 +146,19 @@ const MyBlogs = () => {
                     </div>
                     <div className="pagination-wrapper">
                         <div className="pagination-bar">
-                            <button 
-                                className="pagination-btn-prev" 
-                                onClick={handlePrev}
-                                disabled={prevCursors.length === 0}
-                            >
+                            <button  className="pagination-btn-prev" onClick={handlePrev} disabled={prevCursors.length === 0}>
                                 ‹ Previous
                             </button>
                             
                             <div className="pagination-pages">
                                 {pageNumbers.map((page) => (
-                                    <button
-                                        key={page}
-                                        className={`pagination-page-btn ${page === currentPage ? "active" : ""}`}
-                                        onClick={() => goToPage(page)}
-                                        disabled={page === currentPage}
-                                    >
+                                    <button key={page} className={`pagination-page-btn ${page === currentPage ? "active" : ""}`} onClick={() => goToPage(page)} disabled={page === currentPage}>
                                         {page}
                                     </button>
                                 ))}
                             </div>
 
-                            <button 
-                                className="pagination-btn-next" 
-                                onClick={handleNext}
-                                disabled={!hasNextPage}
-                            >
+                            <button className="pagination-btn-next"  onClick={handleNext} disabled={!hasNextPage}>
                                 Next ›
                             </button>
                         </div>
